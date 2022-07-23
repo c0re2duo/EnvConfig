@@ -1,4 +1,4 @@
-import os
+import os.path
 from dataclasses import dataclass
 from environs import Env
 
@@ -13,15 +13,13 @@ path: str
 
 @dataclass
 class TgBot:
-    some_token: str
-    moneys: int
+    bot_token: str
     admins: list[int]
-    bool_value: bool
 
 
 @dataclass
 class Miscellaneous:
-    other_params: str = None
+    support_link: str
 
 
 @dataclass
@@ -38,12 +36,12 @@ def load_env_config(cfg_path: str = None) -> Config:
 
     return Config(
         tg_bot=TgBot(
-            some_token=env.str("SOME_TOKEN"),
-            moneys=env.int("MONEYS"),
+            bot_token=env.str("BOT_TOKEN"),
             admins=list(map(int, env.list("ADMINS"))),
-            bool_value=env.bool("BOOL_VALUE"),
         ),
-        misc=Miscellaneous()
+        misc=Miscellaneous(
+            support_link=env.str('SUPPORT_LINK')
+        )
     )
 
 
